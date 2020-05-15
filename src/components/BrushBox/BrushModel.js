@@ -81,7 +81,6 @@ export class BrushModel {
         this.obj.restore();
     }
 
-    // todo 橡皮擦和剪切还没做好
 
     //直线
     line(x,y,x1,y1){
@@ -92,11 +91,13 @@ export class BrushModel {
         this.obj.stroke();
     }
 
+    // 橡皮擦
     eraser(x,y,x1,y1){
         this.obj.lineCap="round";
         this.obj.clearRect(x1-5,y1-5,10,10);
     }
 
+    // 虚线方框
     cut(x,y,x1,y1){
         this.init();
         this.obj.save();

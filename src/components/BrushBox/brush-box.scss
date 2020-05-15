@@ -1,0 +1,267 @@
+.brush__box {
+  width: 600px;
+  height: 320px;
+  margin: 0 auto;
+  position: relative;
+
+  a:hover {
+    cursor: pointer;
+  }
+
+  .video__box {
+    position: absolute;
+    margin-right: 50%;
+    transform: translateX(-50%);
+    z-index: -999;
+    border: 1px solid;
+  }
+
+  /*画笔的底部按钮组*/
+  .brush__box--feature {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    a {
+      display: inline-block;
+      width: 22px;
+      height: 18px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
+    .rect {
+      background: url("~@/assets/img/brushBox/btn_square_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_square_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_square_pressed@2x.png");
+      }
+    }
+
+    .active-rect {
+      background-image: url("~@/assets/img/brushBox/btn_square_pressed@2x.png");
+    }
+
+    .line {
+      background: url("~@/assets/img/brushBox/btn_line.png") no-repeat 0 0/contain;
+    }
+
+    .eraser {
+      background: url("~@/assets/img/brushBox/btn_eraser.jpg") no-repeat 0 0/contain;
+    }
+
+    .dot {
+      background: url("~@/assets/img/brushBox/btn_dot.png") no-repeat 0 0/contain;
+    }
+
+    .circle {
+      background: url("~@/assets/img/brushBox/btn_circular_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_circular_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_circular_pressed@2x.png");
+      }
+    }
+
+    .active-circle {
+      background-image: url("~@/assets/img/brushBox/btn_circular_pressed@2x.png");
+    }
+
+    .arrow {
+      background: url("~@/assets/img/brushBox/btn_arrow_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_arrow_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_arrow_pressed@2x.png");
+      }
+    }
+
+    .active-arrow {
+      background-image: url("~@/assets/img/brushBox/btn_arrow_pressed@2x.png");
+    }
+
+    .pen {
+      background: url("~@/assets/img/brushBox/btn_pen_color_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_pen_color_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_pen_color_pressed@2x.png");
+      }
+    }
+
+    .active-pen {
+      background-image: url("~@/assets/img/brushBox/btn_pen_color_pressed@2x.png");
+    }
+
+    .text {
+      background: url("~@/assets/img/brushBox/btn_word_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_word_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_word_pressed@2x.png");
+      }
+    }
+
+    .active-text {
+      background-image: url("~@/assets/img/brushBox/btn_word_pressed@2x.png");
+    }
+
+    .bend-arrow {
+      background: url("~@/assets/img/brushBox/btn_return_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_return_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_return_pressed@2x.png");
+      }
+    }
+
+    .close-canvas {
+      background: url("~@/assets/img/brushBox/btn_pen_delete_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_pen_delete_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_pen_delete_pressed@2x.png");
+      }
+    }
+
+    .save-canvas {
+      background: url("~@/assets/img/brushBox/btn_pen_send_nor@2x.png") no-repeat 0 0/contain;
+
+      &:hover {
+        background-image: url("~@/assets/img/brushBox/btn_pen_send_hover@2x.png");
+      }
+
+      &:active {
+        background-image: url("~@/assets/img/brushBox/btn_pen_send_pressed@2x.png");
+      }
+    }
+
+  }
+
+  .brush__box--color {
+    line-height: 34px;
+    background: #dfdfdf;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 45px;
+    height: 237px;
+    z-index: 100;
+
+    a {
+      display: block;
+      width: 25px;
+      height: 25px;
+      margin: 6px auto;
+    }
+
+    .brush__header {
+      display: block;
+      width: 16px;
+      height: 3px;
+      margin: 4px auto;
+      background: url('~@/assets/img/brushBox/pen_bg_move@2x.png');
+      background-size: 100% 100%;
+    }
+
+    .small-dot, .medium-dot, .big-dot {
+      background: #B6B6B6;
+      border-radius: 100%;
+    }
+
+    .small-dot {
+      width: 4px;
+      height: 4px;
+    }
+
+    .medium-dot {
+      width: 6px;
+      height: 6px;
+    }
+
+    .big-dot {
+      width: 10px;
+      height: 10px;
+    }
+
+    /*选中圆点的样式*/
+    .active-dot {
+      background: #1395F1;
+    }
+
+    .canvas-red {
+      background: url("~@/assets/img/brushBox/btn_sos_red_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .active-red {
+      background-image: url("~@/assets/img/brushBox/btn_sos_red_checked@2x.png");
+    }
+
+    .canvas-blue {
+      background: url("~@/assets/img/brushBox/btn_sos_blue_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .active-blue {
+      background-image: url("~@/assets/img/brushBox/btn_sos_blue_checked@2x.png");
+    }
+
+    .canvas-yellow {
+      background: url("~@/assets/img/brushBox/btn_sos_yellow_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .active-yellow {
+      background-image: url("~@/assets/img/brushBox/btn_sos_yellow_checked@2x.png");
+    }
+
+    .canvas-black {
+      background: url("~@/assets/img/brushBox/btn_sos_black_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .active-black {
+      background-image: url("~@/assets/img/brushBox/btn_sos_black_checked@2x.png");
+    }
+
+    .canvas-gray {
+      background: url("~@/assets/img/brushBox/btn_sos_gray_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .active-gray {
+      background-image: url("~@/assets/img/brushBox/btn_sos_gray_checked@2x.png");
+    }
+
+    .block__picker--multi {
+      background: url("~@/assets/img/brushBox/btn_sos_custom_unchecked@2x.png") no-repeat;
+      background-size: 100% 100%;
+    }
+  }
+}
