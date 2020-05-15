@@ -8,6 +8,7 @@ export class BrushModel {
         this.type = type || "stroke";
         this.color = color || "#000";
         this.width = width || "1";
+        this.init();
     }
 
     init() {
@@ -18,7 +19,6 @@ export class BrushModel {
 
     //箭头
     arrow(startX, startY, endX, endY) {
-        this.init();
         var slopy, cosy, siny;
         //箭头尺寸
         var arrowLength = this.obj.lineWidth * 5;
@@ -47,7 +47,6 @@ export class BrushModel {
 
     //矩形
     rect(x, y, x1, y1) {
-        this.init();
         this.obj.beginPath();
         this.obj.rect(x, y, x1 - x, y1 - y);
         if (this.type == "stroke") {
@@ -59,8 +58,6 @@ export class BrushModel {
 
     //圆
     circle(x, y, x1, y1) {
-        console.log('yuan',x,y,x1,y1)
-        this.init();
         var r = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
         this.obj.beginPath();
         this.obj.arc(x, y, r, 0, 2 * Math.PI);
@@ -73,7 +70,6 @@ export class BrushModel {
 
     //铅笔
     pen(x, y, x1, y1) {
-        this.init();
         this.obj.save();
         this.obj.lineCap = "round";
         this.obj.lineTo(x1, y1);
@@ -82,9 +78,8 @@ export class BrushModel {
     }
 
 
-    //直线
+    // 直线
     line(x,y,x1,y1){
-        this.init();
         this.obj.beginPath();
         this.obj.moveTo(x,y);
         this.obj.lineTo(x1,y1);
@@ -99,7 +94,6 @@ export class BrushModel {
 
     // 虚线方框
     cut(x,y,x1,y1){
-        this.init();
         this.obj.save();
         this.obj.setLineDash([4,2]);
         this.obj.beginPath();
