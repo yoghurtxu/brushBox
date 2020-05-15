@@ -24,9 +24,9 @@
 直接上图：
 
 以下是我用第三方截的效果图：
-![image](https://github.com/yoghurtxu/brushBox/blob/master/src/assets/img/reamdme/1.png)
+![image](https://111999x.oss-cn-beijing.aliyuncs.com/one.png)
 以下是本项目的生成的base64效果图：
-![image](https://github.com/yoghurtxu/brushBox/blob/master/src/assets/img/reamdme/2.png)
+![image](https://111999x.oss-cn-beijing.aliyuncs.com/two.png)
 
 感兴趣的同学可以下载下来涂鸦，欢迎指教。
 
