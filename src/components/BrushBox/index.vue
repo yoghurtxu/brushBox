@@ -164,14 +164,14 @@
                 if (!this.isStroke) {
                     this.isStroke = true
                 }
-                this.brushConfig.startX = event.offsetX || event.layerX,
+                this.brushConfig.startX = event.offsetX || event.layerX;
                 this.brushConfig.startY = event.offsetY || event.layerY;
 
                 this.context.beginPath();
                 this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
 
                 this.draw = new BrushModel(this.context, {
-                    type: this.brushConfig.type,
+                    type: this.brushConfig.style,
                     color: this.brushConfig.strokeColor,
                     width: this.brushConfig.lineWidth
                 });
@@ -187,7 +187,7 @@
             //canvas鼠标移动
             canvasMouseMove(event) {
                 if (!this.draw || !this.isStroke) return;
-                this.brushConfig.endX = event.offsetX || event.layerX,
+                this.brushConfig.endX = event.offsetX || event.layerX;
                     this.brushConfig.endY = event.offsetY || event.layerY;
                 if (this.brushConfig.type != "eraser") {
                     //clearRect() 方法清空给定矩形内的指定像素。 TODO 先注释，后面改回来
