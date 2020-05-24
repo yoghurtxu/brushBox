@@ -70,11 +70,11 @@ export class BrushModel {
 
     //铅笔
     pen(x, y, x1, y1) {
-        this.obj.save();
+        // this.obj.save();
         this.obj.lineCap = "round";
         this.obj.lineTo(x1, y1);
         this.obj.stroke();
-        this.obj.restore();
+        // this.obj.restore();
     }
 
 
@@ -94,12 +94,12 @@ export class BrushModel {
 
     // 虚线方框
     cut(x,y,x1,y1){
-        this.obj.save();
+        // this.obj.save();
         this.obj.setLineDash([4,2]);
         this.obj.beginPath();
         this.obj.lineWidth=1;
         this.obj.rect(x,y,x1-x,y1-y);
         this.obj.stroke();
-        this.obj.restore();
+        // this.obj.restore();
     }
 }
