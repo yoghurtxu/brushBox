@@ -24,10 +24,10 @@
         </div>
 
         <video
-            width="480"
-            height="280"
-            class="video__box"
-            ref="videoBox">
+                width="480"
+                height="280"
+                class="video__box"
+                ref="videoBox">
         </video>
 
         <div>
@@ -98,7 +98,7 @@
                 context: null, //canvas.getContext
             }
         },
-        watch:{
+        watch: {
             'brushConfig.pickerColor': function (newColor) {
                 this.brushConfig.strokeColor = newColor;
                 this.brushConfig.activeColor = '';
@@ -165,19 +165,13 @@
                     this.isStroke = true
                 }
                 this.brushConfig.startX = event.offsetX || event.layerX,
-                    this.brushConfig.startY = event.offsetY || event.layerY;
+                this.brushConfig.startY = event.offsetY || event.layerY;
 
-                //铅笔
-                if (this.brushConfig.type == "pen") {
-                    this.context.beginPath();
-                    this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
-                } else {
-                    this.context.beginPath();
-                    this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
-                }
+                this.context.beginPath();
+                this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
 
                 this.draw = new BrushModel(this.context, {
-                    type: this.brushConfig.style,
+                    type: this.brushConfig.type,
                     color: this.brushConfig.strokeColor,
                     width: this.brushConfig.lineWidth
                 });
