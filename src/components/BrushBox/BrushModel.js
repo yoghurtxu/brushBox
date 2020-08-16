@@ -7,7 +7,7 @@ export class BrushModel {
         this.obj = obj;
         this.type = type || "stroke";
         this.color = color || "#000";
-        this.width = width || "1";
+        this.width = width || 1;
         this.init();
     }
 

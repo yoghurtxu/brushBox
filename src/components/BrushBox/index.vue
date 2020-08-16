@@ -81,7 +81,7 @@
                 brushConfig: {
                     arr: [],//存放画布的数组
                     type: 'pen',//画笔类型
-                    style: '',//填充或者无填充
+                    style: null,//填充或者无填充
                     lineWidth: 1,//线条宽度
                     strokeColor: '#FF2424', //canvas画笔默认颜色
                     activeColor: 'red', //canvas画笔默认选中颜色状态
