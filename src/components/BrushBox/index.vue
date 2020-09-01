@@ -185,27 +185,35 @@
                         color: this.brushConfig.strokeColor,
                         width: this.brushConfig.lineWidth
                     });
-                    console.log('%cthis.draw', 'background-color:red;color:white',this.draw,)
-
+                    console.log('%cthis.draw', 'background-color:red;color:white',this.draw)
                 }
             },
 
             //canvas鼠标移动
             canvasMouseMove(event) {
+
                 if (!this.draw || !this.isStroke) return;
                 this.brushConfig.endX = event.offsetX || event.layerX;
                 this.brushConfig.endY = event.offsetY || event.layerY;
                 if (this.brushConfig.type != "eraser") {
+                    // 修复首次画的时候重影问题，参考 http://www.360doc.com/content/14/0731/14/1045556_398354343.shtml
+                    this.context.save();
+                    this.context.clearRect(0, 0, this.canvasId.width, this.canvasId.height);
                     // console.log('现有数组',this.brushConfig.arr)
                     if (this.brushConfig.arr.length != 0) {
                         // putImageData() 方法将图像数据（从指定的 ImageData 对象）放回画布上。
                         this.context.putImageData(this.brushConfig.arr[this.brushConfig.arr.length - 1], 0, 0, 0, 0, this.canvasId.width, this.canvasId.height);
+
                     }
+                    this.context.restore();
+
                 }
                 //如果是文本框，不需要画，而是键盘输入文字的时候才画
                 if (this.brushConfig.type != 'text') {
+
                     this.draw[this.brushConfig.type](this.brushConfig.startX, this.brushConfig.startY, this.brushConfig.endX, this.brushConfig.endY);
                 }
+
 
             },
 
