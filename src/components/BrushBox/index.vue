@@ -93,7 +93,7 @@
                     textVal: '',//canvas文本框的值
                 },
                 isMouseDown: false,//video标签鼠标事件是否开始动作
-                isCanvasStart: false, //canvas书写是否开始标志
+                isStroke: false, //canvas书写是否开始标志
                 canvasId: null, //canvas节点
                 context: null, //canvas.getContext
             }
@@ -108,10 +108,23 @@
             this.brushVideo()
         },
         methods: {
+
+            //画笔
+            brushVideo() {
+                let videoItem = this.$refs.videoBox; //需要截图的包裹的（原生的）DOM 对象
+                const videoWidth = videoItem.offsetWidth; //获取dom 宽度
+                const videoHeight = videoItem.offsetHeight; //获取dom 高度
+                this.canvasId = this.$refs.brushDraw;
+                this.context = this.canvasId.getContext('2d'); //获取context
+                this.canvasId.width = videoWidth; //定义canvas 宽度
+                this.canvasId.height = videoHeight; //定义canvas 高度
+            },
+
             //画笔宽度
             getLineWidth(width) {
                 this.brushConfig.lineWidth = width;
             },
+
             //获取canvas画笔颜色,并在鼠标移动绘画的时候重置线条颜色
             getStrokeColor(lineColor) {
                 const COLOR_MAP = {
@@ -124,16 +137,6 @@
                 }
                 this.brushConfig.strokeColor = COLOR_MAP[lineColor];
                 this.brushConfig.activeColor = lineColor;
-            },
-            //画笔
-            brushVideo() {
-                let videoItem = this.$refs.videoBox; //需要截图的包裹的（原生的）DOM 对象
-                const videoWidth = videoItem.offsetWidth; //获取dom 宽度
-                const videoHeight = videoItem.offsetHeight; //获取dom 高度
-                this.canvasId = this.$refs.brushDraw;
-                this.context = this.canvasId.getContext('2d'); //获取context
-                this.canvasId.width = videoWidth; //定义canvas 宽度
-                this.canvasId.height = videoHeight; //定义canvas 高度
             },
 
             // 画笔类型(矩形圆形铅笔等等)
@@ -148,21 +151,23 @@
                 this.textMaxWidth = 50;
                 this.draw[this.brushConfig.type](this.brushConfig.textVal, this.brushConfig.startX, this.brushConfig.startY, this.textMaxWidth);
             },
+
             //撤销
             backCanvas() {
                 this.brushConfig.arr.pop();
-                //clearRect() 方法清空给定矩形内的指定像素。
-                this.context.clearRect(0, 0, this.canvasId.width, this.canvasId.height);
                 if (this.brushConfig.arr.length > 0) {
                     // putImageData() 方法将图像数据（从指定的 ImageData 对象）放回画布上
                     this.context.putImageData(this.brushConfig.arr[this.brushConfig.arr.length - 1], 0, 0, 0, 0, this.canvasId.width, this.canvasId.height);
+                }else{
+                    //clearRect() 方法清空给定矩形内的指定像素。
+                    this.context.clearRect(0, 0, this.canvasId.width, this.canvasId.height);
                 }
             },
 
             //canvas鼠标按下，开始书写
             canvasMouseDown(event) {
                 if (!this.isStroke) {
-                    this.isStroke = true
+                    this.isStroke = true;
                 }
                 this.brushConfig.startX = event.offsetX || event.layerX;
                 this.brushConfig.startY = event.offsetY || event.layerY;
@@ -175,23 +180,16 @@
                     color: this.brushConfig.strokeColor,
                     width: this.brushConfig.lineWidth
                 });
-            },
-
-            //canvas鼠标抬起，结束书写
-            canvasMouseUp() {
-                this.isStroke = false;
-                // getImageData() 复制画布上指定的矩形的像素数据
-                this.brushConfig.arr.push(this.context.getImageData(0, 0, this.canvasId.width, this.canvasId.height));
+                console.log('this.draw',this.draw)
             },
 
             //canvas鼠标移动
             canvasMouseMove(event) {
                 if (!this.draw || !this.isStroke) return;
                 this.brushConfig.endX = event.offsetX || event.layerX;
-                    this.brushConfig.endY = event.offsetY || event.layerY;
+                this.brushConfig.endY = event.offsetY || event.layerY;
                 if (this.brushConfig.type != "eraser") {
-                    //clearRect() 方法清空给定矩形内的指定像素。 TODO 先注释，后面改回来
-                    // this.context.clearRect(0,0,this.canvasId.width,this.canvasId.height);
+                    console.log('现有数组',this.brushConfig.arr)
                     if (this.brushConfig.arr.length != 0) {
                         // putImageData() 方法将图像数据（从指定的 ImageData 对象）放回画布上。
                         this.context.putImageData(this.brushConfig.arr[this.brushConfig.arr.length - 1], 0, 0, 0, 0, this.canvasId.width, this.canvasId.height);
@@ -203,6 +201,18 @@
                 }
 
             },
+
+            //canvas鼠标抬起，结束书写
+            canvasMouseUp() {
+                this.isStroke = false;
+                // getImageData() 复制画布上指定的矩形的像素数据
+                this.brushConfig.arr.push(this.context.getImageData(0, 0, this.canvasId.width, this.canvasId.height));
+                // 这边修改完影响全局this.brushConfig.arr，现有数组的console.log也会变化
+                console.log('存入数组',this.brushConfig.arr)
+
+            },
+
+
             // 生成图片
             generatePic() {
                 //画布内容转化为图片

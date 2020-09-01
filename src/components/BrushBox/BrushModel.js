@@ -1,5 +1,5 @@
 
-import { getDistance } from '@/assets/js/utils.js';
+import { getDistance } from '@/assets/js/utils';
 
 export class BrushModel {
     constructor(obj, setting) {
@@ -56,7 +56,7 @@ export class BrushModel {
         }
     }
 
-    //圆
+    //圆 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/arc
     circle(x, y, x1, y1) {
         var r = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
         this.obj.beginPath();
@@ -92,7 +92,7 @@ export class BrushModel {
         this.obj.clearRect(x1-5,y1-5,10,10);
     }
 
-    // 虚线方框
+    // 虚线方框 https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/setLineDash
     cut(x,y,x1,y1){
         // this.obj.save();
         this.obj.setLineDash([4,2]);
