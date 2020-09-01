@@ -68,7 +68,7 @@
 <script>
 
     import {BrushModel} from './BrushModel.js';
-    import {dataURLtoFile} from '@/assets/js/utils.js';
+    import {dataURLtoFile} from '@/assets/js/utils';
 
     export default {
         name: "BrushBox",
@@ -96,6 +96,7 @@
                 isStroke: false, //canvas书写是否开始标志
                 canvasId: null, //canvas节点
                 context: null, //canvas.getContext
+                isChange:false, // 画笔配置（目前就画笔粗细和画笔颜色）是否发生变化，如果变化，需要重新new
             }
         },
         watch: {
@@ -105,7 +106,7 @@
             },
         },
         mounted() {
-            this.brushVideo()
+            this.brushVideo();
         },
         methods: {
 
@@ -123,6 +124,7 @@
             //画笔宽度
             getLineWidth(width) {
                 this.brushConfig.lineWidth = width;
+                if(!this.isChange) this.isChange = true;
             },
 
             //获取canvas画笔颜色,并在鼠标移动绘画的时候重置线条颜色
@@ -137,6 +139,7 @@
                 }
                 this.brushConfig.strokeColor = COLOR_MAP[lineColor];
                 this.brushConfig.activeColor = lineColor;
+                if(!this.isChange) this.isChange = true;
             },
 
             // 画笔类型(矩形圆形铅笔等等)
@@ -175,12 +178,16 @@
                 this.context.beginPath();
                 this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
 
-                this.draw = new BrushModel(this.context, {
-                    type: this.brushConfig.style,
-                    color: this.brushConfig.strokeColor,
-                    width: this.brushConfig.lineWidth
-                });
-                console.log('this.draw',this.draw)
+                // BrushModel实例不存在（首次会不存在）或者画笔配置（目前就画笔粗细和画笔颜色）变化，需要new实例
+                if(!this.draw || this.isChange){
+                    this.draw = new BrushModel(this.context, {
+                        type: this.brushConfig.style,
+                        color: this.brushConfig.strokeColor,
+                        width: this.brushConfig.lineWidth
+                    });
+                    console.log('%cthis.draw', 'background-color:red;color:white',this.draw,)
+
+                }
             },
 
             //canvas鼠标移动
@@ -189,7 +196,7 @@
                 this.brushConfig.endX = event.offsetX || event.layerX;
                 this.brushConfig.endY = event.offsetY || event.layerY;
                 if (this.brushConfig.type != "eraser") {
-                    console.log('现有数组',this.brushConfig.arr)
+                    // console.log('现有数组',this.brushConfig.arr)
                     if (this.brushConfig.arr.length != 0) {
                         // putImageData() 方法将图像数据（从指定的 ImageData 对象）放回画布上。
                         this.context.putImageData(this.brushConfig.arr[this.brushConfig.arr.length - 1], 0, 0, 0, 0, this.canvasId.width, this.canvasId.height);
@@ -208,8 +215,8 @@
                 // getImageData() 复制画布上指定的矩形的像素数据
                 this.brushConfig.arr.push(this.context.getImageData(0, 0, this.canvasId.width, this.canvasId.height));
                 // 这边修改完影响全局this.brushConfig.arr，现有数组的console.log也会变化
-                console.log('存入数组',this.brushConfig.arr)
-
+                // console.log('存入数组',this.brushConfig.arr)
+                this.isChange = false;
             },
 
 
