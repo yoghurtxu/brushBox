@@ -1,16 +1,16 @@
 <template>
   <div id="app">
-    <BrushBox></BrushBox>
+    <brush-box></brush-box>
   </div>
 </template>
 
 <script>
-import BrushBox from './components/BrushBox/index.vue'
+import brushBox from './components/BrushBox/index.vue'
 
 export default {
   name: 'App',
   components: {
-    BrushBox
+    brushBox
   }
 }
 </script>
