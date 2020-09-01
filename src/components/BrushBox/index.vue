@@ -178,7 +178,7 @@
                 this.context.beginPath();
                 this.context.moveTo(this.brushConfig.startX, this.brushConfig.startY);
 
-                // BrushModel实例不存在（首次会不存在）或者画笔配置（目前就画笔粗细和画笔颜色）变化，需要new实例
+                // BrushModel实例不存在（首次会不存在）或者画笔配置（目前就画笔粗细和画笔颜色）变化（constructor里面的配置项需要变化），才需要new实例
                 if(!this.draw || this.isChange){
                     this.draw = new BrushModel(this.context, {
                         type: this.brushConfig.style,
