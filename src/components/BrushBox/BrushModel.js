@@ -41,6 +41,7 @@ export class BrushModel {
         this.obj.lineTo(endX + (arrowLength * cosy - (arrowWidth / 2.0 * siny)), endY + (arrowLength * siny + (arrowWidth / 2.0 * cosy)));
         this.obj.moveTo(endX, endY);
         this.obj.lineTo(endX + (arrowLength * cosy + (arrowWidth / 2.0 * siny)), endY - (arrowWidth / 2.0 * cosy - arrowLength * siny));
+        // closePath() 是 Canvas 2D API 将笔点返回到当前子路径起始点的方法。它尝试从当前点到起始点绘制一条直线。 如果图形已经是封闭的或者只有一个点，那么此方法不会做任何操作。
         this.obj.closePath();
         this.obj.stroke();
     }
@@ -50,6 +51,8 @@ export class BrushModel {
         this.obj.beginPath();
         this.obj.rect(x, y, x1 - x, y1 - y);
         if (this.type == "stroke") {
+            // 可以直接调用画矩形的方法
+            // this.obj.strokeRect(x,  y, x1 - x, y1 - y);
             this.obj.stroke();
         } else if (this.type == "fill") {
             this.obj.fill();
@@ -97,7 +100,6 @@ export class BrushModel {
         // this.obj.save();
         this.obj.setLineDash([4,2]);
         this.obj.beginPath();
-        this.obj.lineWidth=1;
         this.obj.rect(x,y,x1-x,y1-y);
         this.obj.stroke();
         // this.obj.restore();
