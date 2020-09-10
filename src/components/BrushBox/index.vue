@@ -116,7 +116,7 @@
                 const videoWidth = videoItem.offsetWidth; //获取dom 宽度
                 const videoHeight = videoItem.offsetHeight; //获取dom 高度
                 this.canvasId = this.$refs.brushDraw;
-                this.context = this.canvasId.getContext('2d'); //获取context
+                this.context = this.canvasId.getContext('2d'); //获取canvas 的上下文，如果上下文没有定义则返回 null
                 this.canvasId.width = videoWidth; //定义canvas 宽度
                 this.canvasId.height = videoHeight; //定义canvas 高度
             },
@@ -191,7 +191,7 @@
 
             //canvas鼠标移动
             canvasMouseMove(event) {
-
+                console.log('move');
                 if (!this.draw || !this.isStroke) return;
                 this.brushConfig.endX = event.offsetX || event.layerX;
                 this.brushConfig.endY = event.offsetY || event.layerY;
@@ -219,11 +219,14 @@
 
             //canvas鼠标抬起，结束书写
             canvasMouseUp() {
+                console.log('up')
                 this.isStroke = false;
                 // getImageData() 复制画布上指定的矩形的像素数据
                 this.brushConfig.arr.push(this.context.getImageData(0, 0, this.canvasId.width, this.canvasId.height));
                 // 这边修改完影响全局this.brushConfig.arr，现有数组的console.log也会变化
-                // console.log('存入数组',this.brushConfig.arr)
+                console.log('存入数组',this.brushConfig.arr)
+                this.brushConfig.arr.forEach(item=>console.log('buffer',item.data.buffer))
+                // 存入arrayBuffer
                 this.isChange = false;
             },
 
