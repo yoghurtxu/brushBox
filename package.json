@@ -1,7 +1,6 @@
 {
-  "name": "brush",
+  "name": "brush-box",
   "version": "0.1.0",
-  "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -43,5 +42,17 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "description": "canvas实现类似QQ截图的效果",
+  "main": "babel.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoghurtxu/brushBox.git"
+  },
+  "author": "xrz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoghurtxu/brushBox/issues"
+  },
+  "homepage": "https://github.com/yoghurtxu/brushBox#readme"
 }
