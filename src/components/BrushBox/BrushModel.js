@@ -1,5 +1,6 @@
 
 import { getDistance } from '@/assets/js/utils';
+import { SMALL_WIDTH } from '@/constants';
 
 export class BrushModel {
     constructor(obj, setting) {
@@ -7,7 +8,7 @@ export class BrushModel {
         this.obj = obj;
         this.type = type || "stroke";
         this.color = color || "#000";
-        this.width = width || 1;
+        this.width = width || SMALL_WIDTH;
         this.init();
     }
 

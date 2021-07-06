@@ -2,12 +2,12 @@
     <div class="brush__box">
         <div class="brush__box--color">
             <span class="brush__header"></span>
-            <a :class="['small-dot', {'active-dot': brushConfig.lineWidth===1}] "
-               @click.prevent="getLineWidth(1)"></a>
-            <a :class="['medium-dot', {'active-dot': brushConfig.lineWidth===2}] "
-               @click.prevent="getLineWidth(2)"></a>
-            <a :class="['big-dot', {'active-dot': brushConfig.lineWidth===3}] "
-               @click.prevent="getLineWidth(3)"></a>
+            <a :class="['small-dot', {'active-dot': brushConfig.lineWidth===SMALL_WIDTH}] "
+               @click.prevent="getLineWidth(SMALL_WIDTH)"></a>
+            <a :class="['medium-dot', {'active-dot': brushConfig.lineWidth===MIDDLE_WIDTH}] "
+               @click.prevent="getLineWidth(MIDDLE_WIDTH)"></a>
+            <a :class="['big-dot', {'active-dot': brushConfig.lineWidth===LARGE_WIDTH}] "
+               @click.prevent="getLineWidth(LARGE_WIDTH)"></a>
             <a :class="['canvas-red', {'active-red': brushConfig.activeColor==='red'}] "
                @click.prevent="getStrokeColor('red')"></a>
             <a :class="['canvas-blue',{'active-blue': brushConfig.activeColor==='blue'}]"
@@ -38,8 +38,8 @@
             </canvas>
             <!--todo 文本框功能还有问题待修复-->
             <!--截图写文字-->
-            <!--<input  v-show="isCanvasText" ref="brushText" id="textItem" v-model="brushConfig.textVal"
-                   @input="inputText"></input>-->
+            <input  v-show="isCanvasText" ref="brushText" id="textItem" v-model="brushConfig.textVal"
+                   @input="inputText"/>
         </div>
 
         <div class="brush__box--feature">
@@ -58,7 +58,7 @@
             <a title="虚线方框" class="dot"
                @click.prevent="drawType('cut')"></a>
             <!--todo 文本框功能还有问题待修复-->
-            <!--<a :class="['text',{'active-text':brushConfig.type==='text'}]" @click.prevent="drawType('text')"></a>-->
+            <a :class="['text',{'active-text':brushConfig.type==='text'}]" @click.prevent="drawType('text')"></a>
             <a title="撤销" class="bend-arrow" @click.prevent="backCanvas"></a>
             <a title="生成图片" class="save-canvas" @click.prevent="generatePic"></a>
         </div>
@@ -69,11 +69,14 @@
 
     import {BrushModel} from './BrushModel.js';
     import {dataURLtoFile} from '@/assets/js/utils';
-
+    import {SMALL_WIDTH,MIDDLE_WIDTH,LARGE_WIDTH} from '@/constants'
     export default {
         name: "BrushBox",
         data() {
             return {
+                SMALL_WIDTH,
+                MIDDLE_WIDTH,
+                LARGE_WIDTH,
                 isCanvasText: false,//canvas是否写字
                 textMaxWidth: null,//文本框最大宽度
                 draw: null,//canvas对象
@@ -82,7 +85,7 @@
                     arr: [],//存放画布的数组
                     type: 'pen',//画笔类型
                     style: null,//填充或者无填充
-                    lineWidth: 1,//线条宽度
+                    lineWidth: SMALL_WIDTH,//线条宽度
                     strokeColor: '#FF2424', //canvas画笔默认颜色
                     activeColor: 'red', //canvas画笔默认选中颜色状态
                     startX: 0,//canvas鼠标按下去的初始x坐标
@@ -210,7 +213,6 @@
                 }
                 //如果是文本框，不需要画，而是键盘输入文字的时候才画
                 if (this.brushConfig.type != 'text') {
-
                     this.draw[this.brushConfig.type](this.brushConfig.startX, this.brushConfig.startY, this.brushConfig.endX, this.brushConfig.endY);
                 }
 
