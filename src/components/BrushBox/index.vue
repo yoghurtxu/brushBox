@@ -237,11 +237,31 @@
             generatePic() {
                 //画布内容转化为图片
                 let strDataURI = this.canvasId.toDataURL("image/png");
-                //base64转换为file对象
-                let newFile = dataURLtoFile(strDataURI, `canvas${new Date().getTime()}.png`)
+
                 alert('图片已生成，请打开控制台查看');
                 console.log('base64：', strDataURI);
-                console.log('file：', newFile);
+                //直接用base64下载
+                const link = document.createElement('a');
+                link.style.display = 'none';
+                link.download = true;
+                link.href = strDataURI;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                //通过File对象下载
+                //base64转换为file对象
+                // let newFile = dataURLtoFile(strDataURI, `canvas${new Date().getTime()}.png`)
+                // console.log('file：', newFile);
+                // const eleLink = document.createElement('a');
+                // eleLink.style.display = 'none';
+                // const url = URL.createObjectURL(newFile);
+                // eleLink.href = url;
+                // document.body.appendChild(link);
+                // eleLink.click();
+                // document.body.removeChild(link);
+                // URL.revokeObjectURL(newFile);
+
             },
         }
 
